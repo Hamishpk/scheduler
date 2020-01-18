@@ -8,15 +8,15 @@ class Scheduler:
 
     INPUT
     ----
-    Reads a text input. First line first line containing two intergers:
+    Reads a text input. First line first line containing two integers:
     n - Number of machines
     m - Number of jobs
-    The second line contains m integers ti — the times in seconds it
+    The second line contains m integers t — the time in seconds it
     takes any thread to process i-th job.
 
     OUTPUT
     ----
-    m lines of 2 space seperated intigers. the 0-based index of the thread
+    m lines of 2 space seperated intigers. The 0-based index of the machine
     which will process the i-th job and the time in seconds when it will
     start processing that job.
 
