@@ -10,24 +10,24 @@ class Scheduler:
     ----
     Reads a text input. First line first line containing two integers:
     n - Number of machines
-    m - Number of jobs
+    j - Number of jobs
     The second line contains m integers t — the time in seconds it
     takes any thread to process i-th job.
 
     OUTPUT
     ----
-    m lines of 2 space seperated intigers. The 0-based index of the machine
+    j lines of 2 space seperated intigers. The 0-based index of the machine
     which will process the i-th job and the time in seconds when it will
     start processing that job.
 
     """
 
     def __init__(self):
-        self.n_workers, self.m = map(int, input().split())
+        self.n_workers, self.n_jobs = map(int, input().split())
         self.jobs = list(map(int, input().split()))
         self.heap = [[0, 0] for i in range(self.n_workers)]
-        self.workers = [None] * self.m
-        self.times = [0] * self.m
+        self.workers = [None] * self.n_jobs
+        self.times = [0] * self.n_jobs
 
 
     def initialise_queue(self):
@@ -35,14 +35,14 @@ class Scheduler:
         Initialises the priority queue
         ----
 
-        Takes the first m jobs and arranges them such that that the machines
+        Takes the first n jobs and arranges them such that that the machines
         processing the smallest jobs are moved to the front of the array.
 
         Calls sift_down() in order to change priority.
 
         """
         worker = 0
-        for i in range(min(self.n_workers, self.m)):
+        for i in range(min(self.n_workers, self.n_jobs)):
             self.heap[i] = [self.jobs[i], i]
             self.workers[i] = worker
             worker += 1
@@ -89,8 +89,8 @@ class Scheduler:
         """
         self.initialise_queue()
         last_time = 0
-        if self.m > self.n_workers:
-            for i in range(self.n_workers, self.m):
+        if self.n_jobs > self.n_workers:
+            for i in range(self.n_workers, self.n_jobs):
                 self.sift_down(0)
                 last_time = self.heap[0][0]
                 self.workers[i] = self.heap[0][1]
@@ -102,7 +102,7 @@ class Scheduler:
         """
         Prints results of which machine takes the next job and the time it takes it.
         """
-        for i in range(self.m):
+        for i in range(self.n_jobs):
             print(self.workers[i], self.times[i])
 
     def main(self):
